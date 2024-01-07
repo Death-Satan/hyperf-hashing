@@ -8,9 +8,8 @@ declare(strict_types=1);
  * @contact  eric@zhu.email
  * @license  https://github.com/hyperf-ext/hashing/blob/master/LICENSE
  */
-namespace HyperfExt\Hashing\Driver;
 
-use RuntimeException;
+namespace HyperfExt\Hashing\Driver;
 
 class Argon2IdDriver extends Argon2IDriver
 {
@@ -22,7 +21,7 @@ class Argon2IdDriver extends Argon2IDriver
     public function check(string $value, string $hashedValue, array $options = []): bool
     {
         if ($this->verifyAlgorithm && $this->info($hashedValue)['algoName'] !== 'argon2id') {
-            throw new RuntimeException('This password does not use the Argon2id algorithm.');
+            throw new \RuntimeException('This password does not use the Argon2id algorithm.');
         }
 
         if (strlen($hashedValue) === 0) {

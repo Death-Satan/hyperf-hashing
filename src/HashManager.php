@@ -8,20 +8,21 @@ declare(strict_types=1);
  * @contact  eric@zhu.email
  * @license  https://github.com/hyperf-ext/hashing/blob/master/LICENSE
  */
+
 namespace HyperfExt\Hashing;
 
 use Hyperf\Contract\ConfigInterface;
 use HyperfExt\Hashing\Contract\DriverInterface;
 use HyperfExt\Hashing\Contract\HashInterface;
 use HyperfExt\Hashing\Driver\BcryptDriver;
-use InvalidArgumentException;
+use function \Hyperf\Support\make;
 
 class HashManager implements HashInterface
 {
     /**
      * The config instance.
      *
-     * @var \Hyperf\Contract\ConfigInterface
+     * @var ConfigInterface
      */
     protected $config;
 
@@ -84,7 +85,7 @@ class HashManager implements HashInterface
 
         $config = $this->config->get("hashing.driver.{$name}");
         if (empty($config) or empty($config['class'])) {
-            throw new InvalidArgumentException(sprintf('The hashing driver config %s is invalid.', $name));
+            throw new \InvalidArgumentException(sprintf('The hashing driver config %s is invalid.', $name));
         }
 
         $driverClass = $config['class'] ?? BcryptDriver::class;

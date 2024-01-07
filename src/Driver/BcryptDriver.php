@@ -8,10 +8,10 @@ declare(strict_types=1);
  * @contact  eric@zhu.email
  * @license  https://github.com/hyperf-ext/hashing/blob/master/LICENSE
  */
+
 namespace HyperfExt\Hashing\Driver;
 
 use HyperfExt\Hashing\Contract\DriverInterface;
-use RuntimeException;
 
 class BcryptDriver extends AbstractDriver implements DriverInterface
 {
@@ -50,7 +50,7 @@ class BcryptDriver extends AbstractDriver implements DriverInterface
         ]);
 
         if ($hash === false) {
-            throw new RuntimeException('Bcrypt hashing not supported.');
+            throw new \RuntimeException('Bcrypt hashing not supported.');
         }
 
         return $hash;
@@ -64,7 +64,7 @@ class BcryptDriver extends AbstractDriver implements DriverInterface
     public function check(string $value, string $hashedValue, array $options = []): bool
     {
         if ($this->verifyAlgorithm && $this->info($hashedValue)['algoName'] !== 'bcrypt') {
-            throw new RuntimeException('This password does not use the Bcrypt algorithm.');
+            throw new \RuntimeException('This password does not use the Bcrypt algorithm.');
         }
 
         return parent::check($value, $hashedValue, $options);

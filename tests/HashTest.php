@@ -8,13 +8,13 @@ declare(strict_types=1);
  * @contact  eric@zhu.email
  * @license  https://github.com/hyperf-ext/hashing/blob/master/LICENSE
  */
+
 namespace HyperfTest;
 
 use HyperfExt\Hashing\Driver\Argon2IdDriver;
 use HyperfExt\Hashing\Driver\Argon2IDriver;
 use HyperfExt\Hashing\Driver\BcryptDriver;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 /**
  * @internal
@@ -68,15 +68,16 @@ class HashTest extends TestCase
      */
     public function testBasicBcryptVerification()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
 
         if (! defined('PASSWORD_ARGON2I')) {
             $this->markTestSkipped('PHP not compiled with Argon2i hashing support.');
         }
 
-        $argonHasher = new Argon2IDriver(['verify' => true]);
+        $argonHasher = new Argon2IDriver(['verify' => true,'threads'=>1]);
         $argonHashed = $argonHasher->make('password');
-        (new BcryptDriver(['verify' => true]))->check('password', $argonHashed);
+        (new BcryptDriver(['verify' => true]))
+            ->check('password', $argonHashed);
     }
 
     /**
@@ -84,7 +85,7 @@ class HashTest extends TestCase
      */
     public function testBasicArgon2iVerification()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
 
         $bcryptHasher = new BcryptDriver(['verify' => true]);
         $bcryptHashed = $bcryptHasher->make('password');
@@ -96,7 +97,7 @@ class HashTest extends TestCase
      */
     public function testBasicArgon2idVerification()
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
 
         $bcryptHasher = new BcryptDriver(['verify' => true]);
         $bcryptHashed = $bcryptHasher->make('password');

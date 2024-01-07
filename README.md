@@ -3,17 +3,19 @@
 该组件为存储用户密码提供了安全的 Bcrypt 和 Argon2 哈希加密方式。
 
 > 移植自 [illuminate/hashing](https://github.com/illuminate/hashing )。
+> 因 `hyperf-ext/hashing` 很久没更新，为支持 hyperf 版本 fork
+
 
 ## 安装
 
 ```shell script
-composer require hyperf-ext/hashing
+composer require death_satan/hashing
 ```
 
 ## 发布配置
 
 ```shell script
-php bin/hyperf.php vendor:publish hyperf-ext/hashing
+php bin/hyperf.php vendor:publish death_satan/hashing
 ```
 
 > 配置文件位于 `config/autoload/hashing.php`。
